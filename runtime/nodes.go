@@ -117,11 +117,15 @@ func (nodes *Nodes) NodeLinks(node *Node) (result []Link) {
 	for sourceMAC, batadv := range neighbours.Batadv {
 		for neighbourMAC, link := range batadv.Neighbours {
 			if neighbourID := nodes.ifaceToNodeID[neighbourMAC]; neighbourID != "" {
+				sourceHostname := nodes.List[neighbours.NodeID].Nodeinfo.Hostname
+				targetHostname := nodes.List[neighbourID].Nodeinfo.Hostname
 				result = append(result, Link{
 					SourceID:      neighbours.NodeID,
+					SourceHostname:sourceHostname,
 					SourceAddress: sourceMAC,
 					TargetID:      neighbourID,
 					TargetAddress: neighbourMAC,
+					TargetHostname:targetHostname,
 					TQ:            float32(link.Tq) / 255.0,
 				})
 			}

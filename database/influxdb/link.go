@@ -12,8 +12,10 @@ func (conn *Connection) InsertLink(link *runtime.Link, t time.Time) {
 	tags := models.Tags{}
 	tags.SetString("source.id", link.SourceID)
 	tags.SetString("source.addr", link.SourceAddress)
+	tags.SetString("source.hostname", link.SourceHostname)
 	tags.SetString("target.id", link.TargetID)
 	tags.SetString("target.addr", link.TargetAddress)
+	tags.SetString("target.hostname", link.TargetHostname)
 
 	conn.addPoint(MeasurementLink, tags, models.Fields{"tq": link.TQ * 100}, t)
 }
